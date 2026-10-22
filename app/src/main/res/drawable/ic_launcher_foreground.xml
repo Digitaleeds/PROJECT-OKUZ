@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Nostromo / Firefly Octagonal Bulkhead Frame inside 66dp safe zone (21..87) -->
+    <path
+        android:pathData="M33,23 L75,23 L85,33 L85,75 L75,85 L33,85 L23,75 L23,33 Z"
+        android:fillColor="#111822"
+        android:strokeColor="#D97706"
+        android:strokeWidth="2.5" />
+    <!-- Inner Commodore CRT Phosphor Amber Reticle -->
+    <path
+        android:pathData="M36,27 L72,27 L81,36 L81,72 L72,81 L36,81 L27,72 L27,36 Z"
+        android:fillColor="#00000000"
+        android:strokeColor="#14B8A6"
+        android:strokeWidth="1.2" />
+    <!-- Hooded 10-Yr-Old Dorsal Silhouette (Left-Center, seen from behind) -->
+    <path
+        android:pathData="M45,34 L53,44 L56,74 L34,74 L37,44 Z"
+        android:fillColor="#F59E0B" />
+    <!-- Deep Hood Shadow Cutout Indicating Dorsal Cloak Seams -->
+    <path
+        android:pathData="M45,38 L49,46 L45,53 L41,46 Z"
+        android:fillColor="#18202C" />
+    <!-- Pointy-Eared Chiweenie Silhouette (Right, alert ears) -->
+    <path
+        android:pathData="M60,64 L63,53 L66,61 L70,53 L73,63 L77,65 L77,74 L60,74 Z"
+        android:fillColor="#14B8A6" />
+    <!-- Corner HUD Brackets -->
+    <path
+        android:pathData="M29,39 L29,33 L35,33 M79,39 L79,33 L73,33 M29,69 L29,75 L35,75 M79,69 L79,75 L73,75"
+        android:strokeColor="#FBBF24"
+        android:strokeWidth="1.8" />
+</vector>

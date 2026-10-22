@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "StoryboardPage": {
+      "title": "StoryboardPage",
+      "description": "A single page worksheet (1 of 25) in Project Okuz Book One: Self-Regulation storyboard production studio.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the authenticated Google user who owns this storyboard page."
+        },
+        "pageNumber": {
+          "type": "integer",
+          "description": "Storyboard page number from 1 to 25."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether this page worksheet has been checked off in the production tracker."
+        },
+        "ruleDorsal": {
+          "type": "boolean",
+          "description": "Main Character Rule check: Viewed from behind / dorsal angle."
+        },
+        "ruleHood": {
+          "type": "boolean",
+          "description": "Main Character Rule check: Deep hooded jacket shadow."
+        },
+        "ruleTree": {
+          "type": "boolean",
+          "description": "Main Character Rule check: Eclipsed by tree / terrain."
+        },
+        "ruleObject": {
+          "type": "boolean",
+          "description": "Main Character Rule check: Blocked by misc. foreground object."
+        },
+        "mandate": {
+          "type": "string",
+          "description": "Illustrative Mandate note (defaults to Unknown / TBD)."
+        },
+        "cameraDistance": {
+          "type": "string",
+          "description": "Selected camera distance: Extreme Wide, Wide Env., Medium Action, Close-Up (Obscured), or empty."
+        },
+        "separationForce": {
+          "type": "string",
+          "description": "Selected separation force: Nature, Bad Luck, Fate, or empty."
+        },
+        "storyline": {
+          "type": "string",
+          "description": "Section 1: Exact manuscript lines and pacing beats to be hand-written on this page."
+        },
+        "illustration": {
+          "type": "string",
+          "description": "Section 2: Dramatic-cinematic staging, lighting, camera angle and exact method hiding the child's face."
+        },
+        "kidPosture": {
+          "type": "string",
+          "description": "Section 3: Kid Posture / Hood notes."
+        },
+        "dogAction": {
+          "type": "string",
+          "description": "Section 3: Chiweenie Action / Ears notes."
+        },
+        "distanceApart": {
+          "type": "string",
+          "description": "Section 3: Physical Distance Apart measurement/notes."
+        },
+        "trigger": {
+          "type": "string",
+          "description": "Section 4: Emotional Trigger in the Self-Regulation beat."
+        },
+        "response": {
+          "type": "string",
+          "description": "Section 4: Self-Regulation Response."
+        },
+        "turningPoint": {
+          "type": "string",
+          "description": "Section 4: Arc Turning Point."
+        },
+        "terrain": {
+          "type": "string",
+          "description": "Section 5: Terrain / Weather Hazard."
+        },
+        "obstacle": {
+          "type": "string",
+          "description": "Section 5: Environmental Obstacle Keeping Them Apart."
+        },
+        "sketchStrokes": {
+          "type": "string",
+          "description": "Serialized vector strokes and stamps drawn on the 16:9 interactive storyboard canvas."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the page record was first created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the page record was last updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "pageNumber",
+        "completed",
+        "ruleDorsal",
+        "ruleHood",
+        "ruleTree",
+        "ruleObject",
+        "mandate",
+        "cameraDistance",
+        "separationForce",
+        "storyline",
+        "illustration",
+        "kidPosture",
+        "dogAction",
+        "distanceApart",
+        "trigger",
+        "response",
+        "turningPoint",
+        "terrain",
+        "obstacle",
+        "sketchStrokes",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/pages/{pageId}": {
+      "schema": {
+        "$ref": "#/entities/StoryboardPage"
+      },
+      "description": "Per-user collection of the 25 Storyboard Design Worksheets for Project Okuz Book One."
+    }
+  }
+}

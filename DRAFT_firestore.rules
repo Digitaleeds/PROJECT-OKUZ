@@ -1,0 +1,114 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Pillar 1 / Phase 4.1: Global Default-Deny Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Phase 3: Hardened Global Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Pillar 2: Standalone Entity Validation Blueprint
+    function isValidStoryboardPage(data) {
+      return request.auth != null &&
+             data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 &&
+             data.userId == request.auth.uid &&
+             data.pageNumber is int && data.pageNumber >= 1 && data.pageNumber <= 25 &&
+             data.completed is bool &&
+             data.ruleDorsal is bool &&
+             data.ruleHood is bool &&
+             data.ruleTree is bool &&
+             data.ruleObject is bool &&
+             data.mandate is string && data.mandate.size() <= 300 &&
+             data.cameraDistance is string && data.cameraDistance.size() <= 100 &&
+             data.separationForce is string && data.separationForce.size() <= 100 &&
+             data.storyline is string && data.storyline.size() <= 5000 &&
+             data.illustration is string && data.illustration.size() <= 5000 &&
+             data.kidPosture is string && data.kidPosture.size() <= 1000 &&
+             data.dogAction is string && data.dogAction.size() <= 1000 &&
+             data.distanceApart is string && data.distanceApart.size() <= 500 &&
+             data.trigger is string && data.trigger.size() <= 1000 &&
+             data.response is string && data.response.size() <= 1000 &&
+             data.turningPoint is string && data.turningPoint.size() <= 1000 &&
+             data.terrain is string && data.terrain.size() <= 2000 &&
+             data.obstacle is string && data.obstacle.size() <= 2000 &&
+             data.sketchStrokes is string && data.sketchStrokes.size() <= 200000 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    match /users/{userId}/pages/{pageId} {
+      allow get: if isSignedIn() &&
+                    isValidId(userId) &&
+                    isValidId(pageId) &&
+                    request.auth.uid == userId &&
+                    existing().userId == request.auth.uid;
+
+      allow list: if isSignedIn() &&
+                     request.auth.uid == userId &&
+                     existing().userId == request.auth.uid;
+
+      allow create: if isSignedIn() &&
+                       isValidId(userId) &&
+                       isValidId(pageId) &&
+                       request.auth.uid == userId &&
+                       incoming().keys().hasAll([
+                         'userId', 'pageNumber', 'completed',
+                         'ruleDorsal', 'ruleHood', 'ruleTree', 'ruleObject',
+                         'mandate', 'cameraDistance', 'separationForce',
+                         'storyline', 'illustration', 'kidPosture', 'dogAction', 'distanceApart',
+                         'trigger', 'response', 'turningPoint', 'terrain', 'obstacle',
+                         'sketchStrokes', 'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'userId', 'pageNumber', 'completed',
+                         'ruleDorsal', 'ruleHood', 'ruleTree', 'ruleObject',
+                         'mandate', 'cameraDistance', 'separationForce',
+                         'storyline', 'illustration', 'kidPosture', 'dogAction', 'distanceApart',
+                         'trigger', 'response', 'turningPoint', 'terrain', 'obstacle',
+                         'sketchStrokes', 'createdAt', 'updatedAt'
+                       ]) &&
+                       isValidStoryboardPage(incoming());
+
+      allow update: if isValidStoryboardPage(incoming()) &&
+                       isSignedIn() &&
+                       isValidId(userId) &&
+                       isValidId(pageId) &&
+                       request.auth.uid == userId &&
+                       existing().userId == request.auth.uid &&
+                       incoming().userId == existing().userId &&
+                       incoming().pageNumber == existing().pageNumber &&
+                       incoming().createdAt == existing().createdAt &&
+                       (
+                         // Action 1: Worksheet Content, Sketch, or Completion Update
+                         incoming().diff(existing()).affectedKeys().hasOnly([
+                           'completed',
+                           'ruleDorsal', 'ruleHood', 'ruleTree', 'ruleObject',
+                           'mandate', 'cameraDistance', 'separationForce',
+                           'storyline', 'illustration', 'kidPosture', 'dogAction', 'distanceApart',
+                           'trigger', 'response', 'turningPoint', 'terrain', 'obstacle',
+                           'sketchStrokes', 'updatedAt'
+                         ])
+                       );
+
+      allow delete: if isSignedIn() &&
+                       isValidId(userId) &&
+                       isValidId(pageId) &&
+                       request.auth.uid == userId &&
+                       existing().userId == request.auth.uid;
+    }
+  }
+}

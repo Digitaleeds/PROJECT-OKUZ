@@ -1,0 +1,6 @@
+{
+  "name": "Project Okuz",
+  "description": "25-Page Handwritten Storyboard & Cinematic Production Studio for Book One: Self-Regulation",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
